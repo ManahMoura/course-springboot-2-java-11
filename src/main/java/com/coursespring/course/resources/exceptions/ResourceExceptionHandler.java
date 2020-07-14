@@ -22,4 +22,14 @@ public class ResourceExceptionHandler {
 				request.getRequestURI());
 		return ResponseEntity.status(status).body(error);
 	}
+
+	@ExceptionHandler(DataBaseException.class)
+	public ResponseEntity<String> database(DataBaseException e, HttpServletRequest request) {
+		String error = "Database error";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
+				request.getRequestURI());
+		return ResponseEntity.status(status).body(error);
+	}
+
 }
